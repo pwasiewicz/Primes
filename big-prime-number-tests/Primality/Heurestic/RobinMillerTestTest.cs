@@ -10,7 +10,7 @@ namespace BigPrimeNumberTests.Primality.Heurestic
         [Fact]
         public async Task Test_Prime13_ReturnsTrue()
         {
-            var test = new RobinMillerTest(3);
+            var test = new RobinMillerTest(10);
             var result = await test.TestAsync(new BigInteger(13));
 
             Assert.True(result);

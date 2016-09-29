@@ -22,7 +22,7 @@ namespace BigPrimeNumber.Helpers
                     RandomHelpers.Rnd.NextBytes(bytes);
                     bytes[bytes.Length - 1] &= 0x7F;
                     result = new BigInteger(bytes);
-                } while (result >= max);
+                } while (result >= max || result.Equals(One) || result.Equals(Zero));
             });
             
             return result;
