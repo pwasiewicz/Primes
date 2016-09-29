@@ -17,4 +17,11 @@ namespace BigPrimeNumber
             return primalityTest.TestAsync(source);
         }
     }
+
+    public enum PrimeCheckComplexity
+    {
+        Fast,
+        Normal,
+        Hard
+    }
 }

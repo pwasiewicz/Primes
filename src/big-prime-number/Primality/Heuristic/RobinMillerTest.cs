@@ -19,7 +19,7 @@ namespace BigPrimeNumber.Primality.Heuristic
             var trivialCheck = await BigIntegerHelpers.TrivialCheckAsync(source);
             if (trivialCheck.HasValue) return trivialCheck.Value;
 
-            var paramateres = await this.CalculateParameterAsync(source);
+            var paramateres = await CalculateParameterAsync(source);
             var d = paramateres.Item1;
             var s = paramateres.Item2;
 
@@ -53,17 +53,16 @@ namespace BigPrimeNumber.Primality.Heuristic
                 
                 if (!isPrime) break;
 
-                if (!x.Equals(sourceMinusOne))
-                {
-                    isPrime = false;
-                    break;
-                }
+                if (x.Equals(sourceMinusOne)) continue;
+
+                isPrime = false;
+                break;
             }
 
             return isPrime;
         }
 
-        private async Task<Tuple<BigInteger, BigInteger>> CalculateParameterAsync(BigInteger source)
+        private static async Task<Tuple<BigInteger, BigInteger>> CalculateParameterAsync(BigInteger source)
         {
             var d = BigInteger.Subtract(source, BigIntegerHelpers.One);
             var s = BigIntegerHelpers.Zero;
