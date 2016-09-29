@@ -38,7 +38,7 @@ namespace BigPrimeNumber.Helpers
 
             if (source.IsEven) return Task.FromResult(new bool?(false));
 
-            return null;
+            return Task.FromResult<bool?>(null);
         }
     }
 }
