@@ -5,7 +5,7 @@ using BigPrimeNumber.Helpers;
 
 namespace BigPrimeNumber.Primality.Heuristic
 {
-    public class RobinMillerTest : IPrimalityTest
+    public class RobinMillerTest : PrimalityTest
     {
         private readonly uint complexity;
 
@@ -14,7 +14,7 @@ namespace BigPrimeNumber.Primality.Heuristic
             this.complexity = complexity;
         }
 
-        public async Task<bool> TestAsync(BigInteger source)
+        public override async Task<bool> TestAsync(BigInteger source)
         {
             var trivialCheck = await BigIntegerHelpers.TrivialCheckAsync(source);
             if (trivialCheck.HasValue) return trivialCheck.Value;
@@ -30,7 +30,7 @@ namespace BigPrimeNumber.Primality.Heuristic
 
             for (var i = 0; i < this.complexity; i++)
             {
-                var a = await BigIntegerHelpers.RandomIntegerBelowAsync(maxRangeToGetFrom);
+                var a = await this.RandomIntegerBelowAsync(maxRangeToGetFrom);
                 var x = BigInteger.ModPow(a, d, source);
                 if (x.Equals(BigIntegerHelpers.One) || x.Equals(sourceMinusOne)) continue;
 

@@ -4,7 +4,7 @@ using BigPrimeNumber.Helpers;
 
 namespace BigPrimeNumber.Primality.Heuristic
 {
-    public class FermatTest : IPrimalityTest
+    public class FermatTest : PrimalityTest
     {
         private readonly uint complexity;
 
@@ -13,7 +13,7 @@ namespace BigPrimeNumber.Primality.Heuristic
             this.complexity = complexity;
         }
 
-        public async Task<bool> TestAsync(BigInteger source)
+        public override async Task<bool> TestAsync(BigInteger source)
         {
             var trivialCheck = await BigIntegerHelpers.TrivialCheckAsync(source);
             if (trivialCheck.HasValue) return trivialCheck.Value;
