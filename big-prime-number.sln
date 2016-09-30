@@ -12,9 +12,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "big-prime-number", "src\big-prime-number\big-prime-number.xproj", "{8D9EF6E4-F335-418C-A283-9C5218EC70C7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{2E46BFC7-D472-4720-9993-D9885CB4EFBC}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "big-prime-number-tests", "src\tests\big-prime-number-tests\big-prime-number-tests.xproj", "{DC8D6B9D-0CDD-48B9-B8DD-A96615CBD2F5}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "big-prime-number-tests", "big-prime-number-tests\big-prime-number-tests.xproj", "{DC8D6B9D-0CDD-48B9-B8DD-A96615CBD2F5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{5DE0E9F0-4BBD-4938-8FF6-A4AE780788B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,7 +36,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8D9EF6E4-F335-418C-A283-9C5218EC70C7} = {F8E10B0B-CE65-402B-ABB2-F55C9122CF35}
-		{2E46BFC7-D472-4720-9993-D9885CB4EFBC} = {F8E10B0B-CE65-402B-ABB2-F55C9122CF35}
-		{DC8D6B9D-0CDD-48B9-B8DD-A96615CBD2F5} = {2E46BFC7-D472-4720-9993-D9885CB4EFBC}
+		{DC8D6B9D-0CDD-48B9-B8DD-A96615CBD2F5} = {5DE0E9F0-4BBD-4938-8FF6-A4AE780788B5}
+		{5DE0E9F0-4BBD-4938-8FF6-A4AE780788B5} = {F8E10B0B-CE65-402B-ABB2-F55C9122CF35}
 	EndGlobalSection
 EndGlobal
