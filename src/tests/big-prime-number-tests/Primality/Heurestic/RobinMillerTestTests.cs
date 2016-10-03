@@ -5,7 +5,7 @@ using Xunit;
 
 namespace BigPrimeNumberTests.Primality.Heurestic
 {
-    public class RobinMillerTestTest
+    public class RobinMillerTestTests
     {
         [Fact]
         public async Task Test_Prime13_ReturnsTrue()
