@@ -1,5 +1,6 @@
 ﻿using System.Numerics;
 using System.Threading.Tasks;
+using BigPrimeNumber.Helpers;
 using BigPrimeNumber.Tools;
 
 namespace BigPrimeNumber.Primality.Deterministic
@@ -17,12 +18,12 @@ namespace BigPrimeNumber.Primality.Deterministic
 
             await Task.Run(() =>
             {
-                for (var i = BigInteger.Zero; i <= sourceSquareRoot; i = BigInteger.Add(i, BigInteger.One))
+                for (var i = BigIntegerHelpers.Two; i <= sourceSquareRoot; i = BigInteger.Add(i, BigInteger.One))
                 {
                     BigInteger rem;
                     BigInteger.DivRem(source, i, out rem);
 
-                    if (rem == BigInteger.Zero) continue;
+                    if (rem != BigInteger.Zero) continue;
 
                     isPrime = false;
                     break;
