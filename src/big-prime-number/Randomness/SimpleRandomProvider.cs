@@ -6,11 +6,9 @@ namespace BigPrimeNumber.Randomness
     {
         private static readonly Lazy<Random> RandomHolder = new Lazy<Random>(() => new Random());
 
-        private static Random Random => RandomHolder.Value;
-
         public void NextBytes(byte[] buffer)
         {
-            Random.NextBytes(buffer);
+            RandomHolder.Value.NextBytes(buffer);
         }
     }
 }

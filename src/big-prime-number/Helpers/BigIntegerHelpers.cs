@@ -4,33 +4,15 @@ using System.Threading.Tasks;
 
 namespace BigPrimeNumber.Helpers
 {
-    public class BigIntegerHelpers
+    internal class BigIntegerHelpers
     {
         public static readonly BigInteger Zero = BigInteger.Zero;
         public static readonly BigInteger One = BigInteger.One;
         public static readonly BigInteger Two = new BigInteger(2);
 
-        public static async Task<BigInteger> RandomIntegerBelowAsync(BigInteger max)
-        {
-            var bytes = max.ToByteArray();
-            BigInteger result;
-
-            await Task.Run(() =>
-            {
-                do
-                {
-                    RandomHelpers.Rnd.NextBytes(bytes);
-                    bytes[bytes.Length - 1] &= 0x7F;
-                    result = new BigInteger(bytes);
-                } while (result >= max || result.Equals(One) || result.Equals(Zero));
-            });
-            
-            return result;
-        }
-
         public static Task<bool?> TrivialCheckAsync(BigInteger source)
         {
-            if (source.Sign < 0) throw new ArgumentOutOfRangeException(nameof(source));
+            if (source.Sign < 0) throw new ArgumentOutOfRangeException(nameof(source), "Source number must be a positive.");
 
             if (source.Equals(One) || source.Equals(Zero))
                 return Task.FromResult(new bool?(false));

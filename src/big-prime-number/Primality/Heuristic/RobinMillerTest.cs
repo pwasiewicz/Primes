@@ -11,12 +11,15 @@ namespace BigPrimeNumber.Primality.Heuristic
 
         public RobinMillerTest(uint complexity)
         {
+            if (complexity == 0)
+                throw new ArgumentOutOfRangeException(nameof(complexity), "Complexity must be above 0.");
+
             this.complexity = complexity;
         }
 
         public override async Task<bool> TestAsync(BigInteger source)
         {
-            var trivialCheck = await BigIntegerHelpers.TrivialCheckAsync(source);
+            var trivialCheck = await this.CheckEdgeCasesAsync(source);
             if (trivialCheck.HasValue) return trivialCheck.Value;
 
             var paramateres = await CalculateParameterAsync(source);
