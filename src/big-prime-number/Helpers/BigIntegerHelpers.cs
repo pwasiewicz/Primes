@@ -20,6 +20,11 @@ namespace BigPrimeNumber.Helpers
 
             if (source.IsEven) return Task.FromResult(new bool?(false));
 
+            if (source < 1000)
+            {
+                return Task.FromResult(new bool?(PrimeNumbers.KnownPrimes.Contains((int) source)));
+            }
+
             return Task.FromResult<bool?>(null);
         }
     }

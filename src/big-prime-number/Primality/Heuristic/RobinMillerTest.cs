@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Numerics;
 using System.Threading.Tasks;
-using BigPrimeNumber.Helpers;
 
 namespace BigPrimeNumber.Primality.Heuristic
 {
@@ -22,64 +21,44 @@ namespace BigPrimeNumber.Primality.Heuristic
             var trivialCheck = await this.CheckEdgeCasesAsync(source);
             if (trivialCheck.HasValue) return trivialCheck.Value;
 
-            var paramateres = await CalculateParameterAsync(source);
-            var d = paramateres.Item1;
-            var s = paramateres.Item2;
+            var d = source - 1;
+            var s = 0;
 
-            var sourceMinusOne = BigInteger.Subtract(source, BigIntegerHelpers.One);
-            var maxRangeToGetFrom = BigInteger.Subtract(source, BigIntegerHelpers.Two);
-
-            var isPrime = true;
+            while (d%2 == 0)
+            {
+                d /= 2;
+                s += 1;
+            }
 
             for (var i = 0; i < this.complexity; i++)
             {
-                var a = await this.RandomIntegerBelowAsync(maxRangeToGetFrom);
+                var a = await RandomIntegerBelowAsync(source);
+
                 var x = BigInteger.ModPow(a, d, source);
-                if (x.Equals(BigIntegerHelpers.One) || x.Equals(sourceMinusOne)) continue;
-
-                var j = BigIntegerHelpers.One;
-
-                await Task.Run(() =>
+                if (x == 1 || x == source - 1)
                 {
-                    while (j < s && !x.Equals(sourceMinusOne))
+                    continue;
+                }
+
+                for (var r = 1; r < s; r++)
+                {
+                    x = BigInteger.ModPow(x, 2, source);
+                    if (x == 1)
                     {
-                        x = BigInteger.ModPow(x, BigIntegerHelpers.Two, source);
-                        if (x.Equals(BigIntegerHelpers.One))
-                        {
-                            isPrime = false;
-                            break;
-                        }
-
-                        j = BigInteger.Add(j, BigIntegerHelpers.One);
+                        return false;
                     }
-                });
-                
-                if (!isPrime) break;
 
-                if (x.Equals(sourceMinusOne)) continue;
+                    if (x == source - 1)
+                    {
+                        break;
+                    }
+                }
 
-                isPrime = false;
-                break;
+                if (x != source - 1)
+                    return false;
             }
 
-            return isPrime;
-        }
-
-        private static async Task<Tuple<BigInteger, BigInteger>> CalculateParameterAsync(BigInteger source)
-        {
-            var d = BigInteger.Subtract(source, BigIntegerHelpers.One);
-            var s = BigIntegerHelpers.Zero;
-
-            await Task.Run(() =>
-            {
-                while (BigInteger.Remainder(d, BigIntegerHelpers.Two).Equals(BigIntegerHelpers.Zero))
-                {
-                    s = BigInteger.Add(s, BigIntegerHelpers.One);
-                    d = BigInteger.Divide(d, BigIntegerHelpers.Two);
-                }
-            });
-
-            return new Tuple<BigInteger, BigInteger>(d, s);
+            return true;
         }
     }
 }

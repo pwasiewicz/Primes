@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Numerics;
 using System.Threading.Tasks;
-using BigPrimeNumber.Helpers;
 
 namespace BigPrimeNumber.Primality.Heuristic
 {
@@ -26,59 +25,70 @@ namespace BigPrimeNumber.Primality.Heuristic
             for (var k = this.complexity; k > 0; k--)
             {
                 var randomNum = await this.RandomIntegerBelowAsync(source);
-                var jacobiResult = await JacobiAsync(randomNum, source);
+                var ec = EulerCriterion(source, randomNum);
+                var jc = await JacobiAsync(randomNum, source);
 
-                if (jacobiResult == 0 || BigInteger.ModPow(randomNum, BigInteger.Divide(BigInteger.Subtract(source, 1), 2), source)  != jacobiResult % source)
-                {
-                    return false;
-                }
+                if (ec != jc) return false;
             }
 
             return true;
         }
 
-        private static async Task<BigInteger> JacobiAsync(BigInteger a, BigInteger n)
+        private static Task<int> JacobiAsync(BigInteger m, BigInteger n)
         {
-            BigInteger mul = 1;
-
-            if (BigInteger.Remainder(n, 2) == 0)
+            return Task.Run(async () =>
             {
-                return BigIntegerHelpers.Two;
-            }
-
-            if (BigInteger.GreatestCommonDivisor(a, n) != 1)
-            {
-                return BigIntegerHelpers.Zero;
-            }
-
-            await Task.Run(() =>
-            {
-                while (a != 0)
+                while (true)
                 {
-                    while (BigInteger.Remainder(a, 2) == BigIntegerHelpers.Zero)
+                    if (m.CompareTo(n) >= 0)
                     {
-                        a = BigInteger.Divide(a, 2);
-
-                        if (BigInteger.Remainder(n, 8) == 3 || BigInteger.Remainder(n, 8) == 5)
-                        {
-                            mul = BigInteger.Negate(mul);
-                        }
+                        m = m%n;
+                        continue;
                     }
 
-                    var temp = a;
-
-                    a = n;
-                    n = temp;
-                    a = BigInteger.Remainder(a, n);
-
-                    if ((BigInteger.Remainder(a, 4) == 3) && (BigInteger.Remainder(a, 4) == 3))
+                    if (n == BigInteger.One || m == BigInteger.One)
                     {
-                        mul = BigInteger.Negate(mul);
+                        return 1;
                     }
+
+                    if (m == BigInteger.Zero)
+                    {
+                        return 0;
+                    }
+
+                    var twoCount = 0;
+
+                    while (m%2 == BigInteger.Zero)
+                    {
+                        twoCount++;
+                        m = m/2;
+                    }
+
+                    var j2N = (n%8).Equals(BigInteger.One) || (n%8).Equals(7) ? 1 : -1;
+
+                    var rule8Multiplier = twoCount%2 == 0 ? 1 : j2N;
+
+                    var tmp =  await JacobiAsync(n, m);
+                    var rule6Multiplier = (n%4).Equals(BigInteger.One) || (m%4).Equals(BigInteger.One) ? 1 : -1;
+
+                    return tmp*rule6Multiplier*rule8Multiplier;
                 }
             });
-
-            return n == BigIntegerHelpers.One ? mul : BigIntegerHelpers.Zero;
         }
+
+        private static int EulerCriterion(BigInteger p, BigInteger a)
+        {
+            var exponent = (p - 1)/2;
+            var x = BigInteger.ModPow(a, exponent, p); 
+
+            if (x.Equals(BigInteger.Zero) || x.Equals(BigInteger.One))
+            {
+                return (int) x;
+            }
+
+            var y = (x + 1)%p;
+            return y.Equals(BigInteger.Zero) ? -1 : 2;
+        }
+
     }
 }

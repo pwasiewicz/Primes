@@ -1,17 +1,28 @@
 ﻿using System.Numerics;
 using System.Threading.Tasks;
 using BigPrimeNumber.Primality.Heuristic;
+using BigPrimeNumberTests.Tests;
 using Xunit;
 
 namespace BigPrimeNumberTests.Primality.Heurestic
 {
-    public class RobinMillerTestTests
+    public class RobinMillerTestTests : PrimalityTestBase
     {
-        [Fact]
-        public async Task Test_Prime13_ReturnsTrue()
+        [Theory]
+        [MemberData(nameof(PrimeNumbersArguments))]
+        public async Task Test_SmallPrime_ReturnsTrue(int prime)
         {
-            var test = new RobinMillerTest(10);
-            var result = await test.TestAsync(new BigInteger(13));
+            var test = new RobinMillerTest(15);
+            var result = await test.TestAsync(new BigInteger(prime));
+
+            Assert.True(result);
+        }
+
+        [Fact]
+        public async Task Test_BigPrime_ReturnsTrue()
+        {
+            var test = new RobinMillerTest(1000);
+            var result = await test.TestAsync(BigKnownNumber());
 
             Assert.True(result);
         }

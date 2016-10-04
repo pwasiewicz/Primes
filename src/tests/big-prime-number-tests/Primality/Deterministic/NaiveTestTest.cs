@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
+﻿using System.Numerics;
 using System.Threading.Tasks;
 using BigPrimeNumber.Primality.Deterministic;
-using BigPrimeNumber.Primality.Heuristic;
+using BigPrimeNumberTests.Tests;
 using Xunit;
 
 namespace BigPrimeNumberTests.Primality.Deterministic
 {
-    public class NaiveTestTest
+    public class NaiveTestTest : PrimalityTestBase
     {
-        [Fact]
-        public async Task Test_Prime13_ReturnsTrue()
+        [Theory]
+        [MemberData(nameof(PrimeNumbersArguments))]
+        public async Task Test_SmallPrimes_ReturnsTrue(int prime)
         {
             var test = new NaiveTest();
-            var result = await test.TestAsync(new BigInteger(13));
+            var result = await test.TestAsync(new BigInteger(prime));
 
             Assert.True(result);
         }

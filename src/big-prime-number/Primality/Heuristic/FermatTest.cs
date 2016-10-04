@@ -25,8 +25,7 @@ namespace BigPrimeNumber.Primality.Heuristic
             for (var i = 0; i < this.complexity; i++)
             {
                 var randomNumber = await this.RandomIntegerBelowAsync(source);
-                randomNumber = BigInteger.ModPow(randomNumber, BigInteger.Subtract(source, BigIntegerHelpers.One),
-                    source);
+                randomNumber = BigInteger.ModPow(randomNumber, source - 1, source);
 
                 if (!randomNumber.Equals(BigIntegerHelpers.One)) return false;
             }

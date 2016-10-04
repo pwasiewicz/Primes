@@ -12,9 +12,20 @@ namespace BigPrimeNumber.Tools
         {
             return GenerateAsync(maxExclusive, new SimpleRandomProvider());
         }
+
         public static async Task<BigInteger> GenerateAsync(BigInteger maxExclusive, IRandomProvider randomProvider)
         {
             if (randomProvider == null) throw new ArgumentNullException(nameof(randomProvider));
+            if (maxExclusive == BigIntegerHelpers.Zero)
+                throw new ArgumentOutOfRangeException(nameof(maxExclusive), "Max exclusiev must be above 0.");
+
+            if (maxExclusive == BigIntegerHelpers.One)
+                return BigInteger.Zero;
+
+            if (maxExclusive < new BigInteger(int.MaxValue))
+            {
+                return new BigInteger(randomProvider.NextInt((int) maxExclusive));
+            }
 
             var bytes = maxExclusive.ToByteArray();
             BigInteger result;

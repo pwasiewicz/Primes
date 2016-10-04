@@ -10,5 +10,10 @@ namespace BigPrimeNumber.Randomness
         {
             RandomHolder.Value.NextBytes(buffer);
         }
+
+        public int NextInt(int maxExclusive)
+        {
+            return RandomHolder.Value.Next(maxExclusive);
+        }
     }
 }
