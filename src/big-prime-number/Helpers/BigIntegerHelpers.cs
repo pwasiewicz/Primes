@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
 
@@ -10,22 +11,24 @@ namespace BigPrimeNumber.Helpers
         public static readonly BigInteger One = BigInteger.One;
         public static readonly BigInteger Two = new BigInteger(2);
 
-        public static Task<bool?> TrivialCheckAsync(BigInteger source)
+        public static bool? TrivialCheck(BigInteger source)
         {
             if (source.Sign < 0) throw new ArgumentOutOfRangeException(nameof(source), "Source number must be a positive.");
 
             if (source.Equals(One) || source.Equals(Zero))
-                return Task.FromResult(new bool?(false));
-            if (source.Equals(Two)) return Task.FromResult(new bool?(true));
+                return false;
+            if (source.Equals(Two)) return true;
 
-            if (source.IsEven) return Task.FromResult(new bool?(false));
+            if (source.IsEven) return false;
 
             if (source < 1000)
             {
-                return Task.FromResult(new bool?(PrimeNumbers.KnownPrimes.Contains((int) source)));
+                return PrimeNumbers.KnownPrimes.Contains((int) source);
             }
 
-            return Task.FromResult<bool?>(null);
+            return PrimeNumbers.KnownPrimes.Any(p => BigInteger.Remainder(source, p) == 0)
+                ? false
+                : (bool?)null;
         }
     }
 }

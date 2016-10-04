@@ -17,9 +17,9 @@ namespace BigPrimeNumber.Primality
             return RandomBigInteger.GenerateAsync(max, this.RandomProvider);
         }
 
-        protected Task<bool?> CheckEdgeCasesAsync(BigInteger value)
+        protected bool? CheckEdgeCases(BigInteger value)
         {
-            return BigIntegerHelpers.TrivialCheckAsync(value);
+            return BigIntegerHelpers.TrivialCheck(value);
         }       
 
         public abstract Task<bool> TestAsync(BigInteger source);

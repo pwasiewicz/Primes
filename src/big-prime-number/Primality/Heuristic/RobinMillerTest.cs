@@ -18,7 +18,7 @@ namespace BigPrimeNumber.Primality.Heuristic
 
         public override async Task<bool> TestAsync(BigInteger source)
         {
-            var trivialCheck = await this.CheckEdgeCasesAsync(source);
+            var trivialCheck = this.CheckEdgeCases(source);
             if (trivialCheck.HasValue) return trivialCheck.Value;
 
             var d = source - 1;
