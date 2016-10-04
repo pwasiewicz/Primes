@@ -17,7 +17,7 @@ namespace BigPrimeNumber.Tools
         {
             if (randomProvider == null) throw new ArgumentNullException(nameof(randomProvider));
             if (maxExclusive == BigIntegerHelpers.Zero)
-                throw new ArgumentOutOfRangeException(nameof(maxExclusive), "Max exclusiev must be above 0.");
+                throw new ArgumentOutOfRangeException(nameof(maxExclusive), "Max exclusive must be above 0.");
 
             if (maxExclusive == BigIntegerHelpers.One)
                 return BigInteger.Zero;

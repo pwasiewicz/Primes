@@ -2,7 +2,7 @@
 
 namespace BigPrimeNumber.Helpers
 {
-    public class PrimeNumbers
+    internal class PrimeNumbers
     {
         public static readonly HashSet<int> KnownPrimes = new HashSet<int>(new[]
         {

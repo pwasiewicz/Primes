@@ -1,14 +1,40 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Numerics;
 
 namespace BigPrimeNumberTests.Tests
 {
     public abstract class PrimalityTestBase
     {
+        private static readonly Random Rnd = new Random();
+
         public static IEnumerable<object[]> PrimeNumbersArguments
         {
             get { return GetPrimeNumbers().Select(pr => new object[] {pr}); }
+        }
+
+        public static IEnumerable<long[]> GeneratedCompositeNumbers
+        {
+            get { return Enumerable.Range(1, 100).Select(e => new[] {GenerateCompositeNumber()}); }
+        }
+
+        private static long GenerateCompositeNumber()
+        {
+            var primeNumbersEnumerable = GetPrimeNumbers();
+            var primeNumbers = primeNumbersEnumerable as int[] ?? primeNumbersEnumerable.ToArray();
+            var factors = Rnd.Next(2, 1000);
+
+            var result = 1L;
+
+            for (var i = 0; i < factors; i++)
+            {
+                var idx = Rnd.Next(0, primeNumbers.Length);
+                result *= primeNumbers[idx];
+            }
+
+            return result;
         }
 
         private static IEnumerable<int> GetPrimeNumbers()

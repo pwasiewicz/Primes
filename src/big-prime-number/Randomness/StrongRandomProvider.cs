@@ -5,7 +5,7 @@ namespace BigPrimeNumber.Randomness
 {
     public class StrongRandomProvider : IRandomProvider
     {
-        private readonly Lazy<RandomNumberGenerator> RandomHolder =
+        private static readonly Lazy<RandomNumberGenerator> RandomHolder =
             new Lazy<RandomNumberGenerator>(RandomNumberGenerator.Create);
 
 

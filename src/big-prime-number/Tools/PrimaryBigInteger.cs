@@ -46,7 +46,7 @@ namespace BigPrimeNumber.Tools
 
         public static Task<BigInteger> GenerateProbablyPrime(uint bitLength)
         {
-            return GeneratePrime(bitLength, new StrongRandomProvider(), new RobinMillerTest(bitLength/2));
+            return GeneratePrime(bitLength, new StrongRandomProvider(), new RobinMillerTest(bitLength/6));
         }
     }
 }

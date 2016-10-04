@@ -17,6 +17,17 @@ namespace BigPrimeNumberTests.Primality.Heurestic
             Assert.True(result);
         }
 
+        [Theory]
+        [MemberData(nameof(GeneratedCompositeNumbers))]
+        public async Task Test_BigComposite_ReturnsTrue(long composite)
+        {
+            var test = new SolovayStrassenTest(15);
+            var result = await test.TestAsync(new BigInteger(composite));
+
+            Assert.False(result);
+        }
+
+
         [Fact]
         public async Task Test_BigPrime_ReturnsTrue()
         {
