@@ -15,9 +15,9 @@ namespace BigPrimeNumberTests.Tests
             get { return GetPrimeNumbers().Select(pr => new object[] {pr}); }
         }
 
-        public static IEnumerable<long[]> GeneratedCompositeNumbers
+        public static IEnumerable<object[]> GeneratedCompositeNumbers
         {
-            get { return Enumerable.Range(1, 100).Select(e => new[] {GenerateCompositeNumber()}); }
+            get { return Enumerable.Range(1, 100).Select(e => new object[] {GenerateCompositeNumber()}); }
         }
 
         private static long GenerateCompositeNumber()
