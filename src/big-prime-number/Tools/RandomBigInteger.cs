@@ -36,7 +36,8 @@ namespace BigPrimeNumber.Tools
                 do
                 {
                     randomProvider.NextBytes(bytes);
-                    if (bytes.All(v => v == 0)) throw new InvalidOperationException("unusual");
+                    if (bytes.All(v => v == 0))
+                        throw new InvalidOperationException("Zero buffer returned by random provider.");
 
                     bytes[bytes.Length - 1] &= 0x7F;
                     result = new BigInteger(bytes);
