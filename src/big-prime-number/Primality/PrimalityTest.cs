@@ -8,7 +8,7 @@ namespace BigPrimeNumber.Primality
 {
     public abstract class PrimalityTest : IPrimalityTest
     {
-        internal IRandomProvider RandomProviderInternal { private get; set; } = new SimpleRandomProvider();
+        internal IRandomProvider RandomProviderInternal { private get; set; } = new StrongRandomProvider();
 
         protected IRandomProvider RandomProvider => this.RandomProviderInternal;
 
