@@ -37,7 +37,8 @@ namespace BigPrimeNumber.Tools
                     randomProvider.NextBytes(bytes);
                     bytes[bytes.Length - 1] &= 0x7F;
                     result = new BigInteger(bytes);
-                } while (result >= maxExclusive || result.Equals(BigIntegerHelpers.One) || result.Equals(BigIntegerHelpers.Zero));
+                } while (result >= maxExclusive || result.Equals(BigIntegerHelpers.One) ||
+                         result.Equals(BigIntegerHelpers.Zero));
             });
 
             return result;
