@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using BigPrimeNumber.Helpers;
 
 namespace BigPrimeNumber.Sequences
 {
@@ -38,7 +39,7 @@ namespace BigPrimeNumber.Sequences
             var s = new BigInteger(4);
 
             for (var i = 1; i < n - 1; i++)
-                s = (BigInteger.Pow(s, 2) - 2) % merseneValue;
+                s = BigInteger.ModPow(s, BigIntegerHelpers.Two, merseneValue);
 
             return s;
         }
