@@ -39,7 +39,7 @@ namespace BigPrimeNumber.Sequences
             var s = new BigInteger(4);
 
             for (var i = 1; i < n - 1; i++)
-                s = BigInteger.ModPow(s, BigIntegerHelpers.Two, merseneValue);
+                s = (BigInteger.Pow(s, 2) - 2) % merseneValue;
 
             return s;
         }

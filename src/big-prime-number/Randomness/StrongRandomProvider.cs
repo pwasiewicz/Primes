@@ -1,24 +1,31 @@
 ﻿using System;
 using System.Security.Cryptography;
+using System.Threading;
 
 namespace BigPrimeNumber.Randomness
 {
     public class StrongRandomProvider : IRandomProvider
     {
-        private static readonly Lazy<RandomNumberGenerator> RandomHolder =
-            new Lazy<RandomNumberGenerator>(RandomNumberGenerator.Create);
 
+        [ThreadStatic]
+        private static RandomNumberGenerator _strongRandom;
 
-        private static readonly Lazy<Random> FastRandomHolder = new Lazy<Random>(() => new Random());
+        private static RandomNumberGenerator StrongRandom
+            => _strongRandom ?? (_strongRandom = RandomNumberGenerator.Create());
+
+        [ThreadStatic] private static Random _fastRandom;
+
+        private static Random FastRandom
+            => _fastRandom ?? (_fastRandom = new Random());
 
         public void NextBytes(byte[] buffer)
         {
-            RandomHolder.Value.GetBytes(buffer);
+            StrongRandom.GetBytes(buffer);
         }
 
         public int NextInt(int maxExclusive)
         {
-            return FastRandomHolder.Value.Next(maxExclusive);
+            return FastRandom.Next(maxExclusive);
         }
     }
 }
