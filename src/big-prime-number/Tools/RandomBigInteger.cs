@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
 using BigPrimeNumber.Helpers;
@@ -35,6 +36,8 @@ namespace BigPrimeNumber.Tools
                 do
                 {
                     randomProvider.NextBytes(bytes);
+                    if (bytes.All(v => v == 0)) throw new InvalidOperationException("unusual");
+
                     bytes[bytes.Length - 1] &= 0x7F;
                     result = new BigInteger(bytes);
                 } while (result >= maxExclusive || result.Equals(BigIntegerHelpers.One) ||
