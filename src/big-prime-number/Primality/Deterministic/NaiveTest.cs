@@ -20,8 +20,7 @@ namespace BigPrimeNumber.Primality.Deterministic
             {
                 for (var i = BigIntegerHelpers.Two; i <= sourceSquareRoot; i = BigInteger.Add(i, BigInteger.One))
                 {
-                    BigInteger rem;
-                    BigInteger.DivRem(source, i, out rem);
+                    var rem = BigInteger.Remainder(source, i);
 
                     if (rem != BigInteger.Zero) continue;
 
