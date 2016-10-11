@@ -15,3 +15,44 @@ Available test algorithms:
 - Fermat test
 - Solovay-Strassen test
 - Naive test
+
+#### Implementing own test
+
+You can create own test. All you need is to implement interface:
+
+```x@
+public interface IPrimalityTest
+{
+    Task<bool> TestAsync(BigInteger source);
+}
+```
+
+You can also use helper class:
+
+```x@
+public abstract class PrimalityTest: IPrimalityTest
+{
+}
+```
+
+It has bunch of methods that can be useful for testing.
+
+
+### Mersenne sequence
+
+*MersenneSequence* is a class, that contains bunch of methods for handling that sequence:
+
+```x@
+public static BigInteger Value(int n)
+``` 
+*Generates a value of n-th mersenne number*
+
+```x@
+public static IEnumerable<BigInteger> Generate(int count = int.MaxValue)
+``` 
+*Generates an enumerable that contains a specified count of mersenne numbers*
+
+```x@
+public static Task<bool> IsPrimeAsync(int n)
+``` 
+*Checkes wheter n-th mersenne number is prime or not*
