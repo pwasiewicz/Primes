@@ -20,7 +20,7 @@ Available test algorithms:
 
 You can create own test. All you need is to implement interface:
 
-```x@
+```c#
 public interface IPrimalityTest
 {
     Task<bool> TestAsync(BigInteger source);
@@ -29,7 +29,7 @@ public interface IPrimalityTest
 
 You can also use helper class:
 
-```x@
+```c#
 public abstract class PrimalityTest: IPrimalityTest
 {
 }
@@ -42,17 +42,17 @@ It has bunch of methods that can be useful for testing.
 
 *MersenneSequence* is a class, that contains bunch of methods for handling that sequence:
 
-```x@
+```c#
 public static BigInteger Value(int n)
 ``` 
 *Generates a value of n-th mersenne number*
 
-```x@
+```c#
 public static IEnumerable<BigInteger> Generate(int count = int.MaxValue)
 ``` 
 *Generates an enumerable that contains a specified count of mersenne numbers*
 
-```x@
+```c#
 public static Task<bool> IsPrimeAsync(int n)
 ``` 
 *Checkes wheter n-th mersenne number is prime or not*
