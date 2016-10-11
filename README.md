@@ -37,6 +37,14 @@ public abstract class PrimalityTest: IPrimalityTest
 
 It has bunch of methods that can be useful for testing.
 
+#### Generating primes
+
+*PrimaryBigInteger* class contains some methods like generating prime numbers:
+
+```c#
+public static Task<BigInteger> GeneratePrime(uint bitLength, IRandomProvider randomProvider, IPrimalityTest primalityTest)
+public static Task<BigInteger> GenerateProbablyPrime(uint bitLength)
+```
 
 ### Mersenne sequence
 
