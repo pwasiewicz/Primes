@@ -1,4 +1,4 @@
-# big-prime-number
+# Primes
 Useful collection of tools for .NET Core that handlies prime numbers. Very big prime numbers (BigInteger).
 
 ## Api / Docs
